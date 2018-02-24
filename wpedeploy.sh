@@ -76,13 +76,12 @@ function deploy () {
   composer install
   # Setup directory structure
   mkdir wp-content && mkdir wp-content/themes && mkdir wp-content/plugins && mkdir wp-content/mu-plugins
-  # Copy meaningful contents of web/app into wp-content
-  cp -rp web/app/plugins wp-content && cp -rp web/app/themes wp-content && cp -rp web/app/mu-plugins wp-content
-
   # Run composer
   composer install -d="web/app/themes/${themeDirectoryName}/"
   # Run yarn
   yarn --cwd "web/app/themes/${themeDirectoryName}/" && yarn --cwd "web/app/themes/${themeDirectoryName}/" build:production
+  # Copy meaningful contents of web/app into wp-content
+  cp -rp web/app/plugins wp-content && cp -rp web/app/themes wp-content && cp -rp web/app/mu-plugins wp-content
 
   ########################################
   # Push to WP Engine
