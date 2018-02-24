@@ -1,6 +1,6 @@
 # Deploy Roots Bedrock WordPress project with Roots Sage-based theme to WP Engine hosting platform
 
-Works up to Bedrock 1.7.2. Deploys themes, plugins, and mu-plugins.
+Works up to Bedrock 1.8.8 and Sage 9.0.0. Deploys themes, plugins, and mu-plugins.
 
 Repo: [https://github.com/hello-jason/bedrock-deploy-to-wpengine](https://github.com/hello-jason/bedrock-deploy-to-wpengine)
 
