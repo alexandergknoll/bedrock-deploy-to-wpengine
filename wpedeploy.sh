@@ -88,7 +88,7 @@ function deploy () {
   # Push to WP Engine
   ########################################
   # WPE-friendly gitignore
-  echo -e "# Ignore executables\n*.exe" > "wp-content/themes${themeDirectoryName}/.gitignore"
+  echo -e "# Ignore executables\n*.exe" > "wp-content/themes/${themeDirectoryName}/.gitignore"
   echo -e "# Ignore everything\n/*\n\n# Except this...\n!wp-content/\n!wp-content/**/*" > .gitignore
   
   git rm -r --cached . &> /dev/null
