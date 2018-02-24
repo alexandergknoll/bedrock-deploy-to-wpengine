@@ -1,19 +1,19 @@
 #!/bin/bash
 # Version: 2.2
-# Last Update: December 29, 2016
+# Last Update: February 24, 2018
 #
-# Description: Bash script to deploy a Bedrock WordPress project to WP Engine's hosting platform
+# Description: Bash script to deploy a Bedrock WordPress project with Roots Sage-based theme to WP Engine's hosting platform
 # Repository: https://github.com/hello-jason/bedrock-deploy-to-wpengine.git
 # README: https://github.com/hello-jason/bedrock-deploy-to-wpengine/blob/master/README.md
 #
-# Tested Bedrock Version: 1.7.2
-# Tested bash version: 4.3.42
+# Tested Bedrock Version: 1.8.8
+# Tested bash version: 4.4.19
 # Author: Jason Cross
 # Author URL: https://hellojason.net/
 ########################################
 # Usage
 ########################################
-# bash wpedeploy.sh nameOfRemote
+# bash wpedeploy.sh nameOfRemote nameOfThemeDirectory
 
 ########################################
 # Thanks
@@ -27,6 +27,8 @@
 ########################################
 # WP Engine remote to deploy to
 wpengineRemoteName=$1
+# Theme directory name
+themeDirectoryName=$2
 # Get current branch user is on
 currentLocalGitBranch=`git rev-parse --abbrev-ref HEAD`
 # Temporary git branch for building and deploying
@@ -77,11 +79,18 @@ function deploy () {
   # Copy meaningful contents of web/app into wp-content
   cp -rp web/app/plugins wp-content && cp -rp web/app/themes wp-content && cp -rp web/app/mu-plugins wp-content
 
+  # Run composer
+  composer install -d="web/app/themes/${themeDirectoryName}/"
+  # Run yarn
+  yarn --cwd "web/app/themes/${themeDirectoryName}/" && yarn --cwd "web/app/themes/${themeDirectoryName}/" build:production
+
   ########################################
   # Push to WP Engine
   ########################################
   # WPE-friendly gitignore
+  echo -e "# Ignore executables\n*.exe" > "wp-content/themes${themeDirectoryName}/.gitignore"
   echo -e "# Ignore everything\n/*\n\n# Except this...\n!wp-content/\n!wp-content/**/*" > .gitignore
+  
   git rm -r --cached . &> /dev/null
   # Find and remove nested git repositories
   rm -rf $(find wp-content -name ".git")

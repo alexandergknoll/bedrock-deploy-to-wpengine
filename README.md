@@ -1,4 +1,4 @@
-# Deploy Roots Bedrock WordPress project to WP Engine hosting platform
+# Deploy Roots Bedrock WordPress project with Roots Sage-based theme to WP Engine hosting platform
 
 Works up to Bedrock 1.7.2. Deploys themes, plugins, and mu-plugins.
 
@@ -45,13 +45,13 @@ Run at the **top level** of your project, in the same directory as your `.env` a
 Deploy to staging:
 
 ```
-bash wpedeploy.sh wpestaging
+bash wpedeploy.sh wpestaging theme-directory-name
 ```
 
 Deploy to production:
 
 ```
-bash wpedeploy.sh wpeproduction
+bash wpedeploy.sh wpeproduction theme-directory-name
 ```
 
 ## FAQs
